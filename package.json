@@ -19,9 +19,18 @@
   ],
   "author": "John Duane <johnpduane@gmail.com>",
   "contributors": [
-    {"name": "lukouko", "url": "https://github.com/lukouko"},
-    {"name": "Vadim Efimov", "url": "https://github.com/qvaqvaboo"},
-    {"name": "corn3lius", "url": "https://github.com/corn3lius"}
+    {
+      "name": "lukouko",
+      "url": "https://github.com/lukouko"
+    },
+    {
+      "name": "Vadim Efimov",
+      "url": "https://github.com/qvaqvaboo"
+    },
+    {
+      "name": "corn3lius",
+      "url": "https://github.com/corn3lius"
+    }
   ],
   "license": "MIT",
   "bugs": {
@@ -33,6 +42,6 @@
     "mocha": "*"
   },
   "dependencies": {
-    "superagent": "^1.2.0"
+    "superagent": "^3.8.1"
   }
 }

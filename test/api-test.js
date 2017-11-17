@@ -18,6 +18,11 @@ var config = {
     password: "test-user-pw",
     baseUrl:  "https://confluence-api-test.atlassian.net/wiki"
 };
+// var config = {
+//     username: "admin",
+//     password: "Pr1smsys",
+//     baseUrl:  "http://localhost:32773"
+// };
 var space = "TEST";
 var title = "TestPage" + Date.now();
 var pageContent = "<p>This is a new page with awesome content! Updated " +
@@ -129,7 +134,7 @@ describe('Confluence API', function () {
         it('should get/read default expanded content', function(done) {
             var confluence = new Confluence(config);
             var options = {id: homePageId}
-            
+
             confluence.getCustomContentById(options, function(err, data) {
                 expect(err).to.be.null;
                 expect(data).not.to.be.null;
@@ -147,7 +152,7 @@ describe('Confluence API', function () {
                 id: homePageId,
                 expanders: ['version', 'metadata']
             }
-            
+
             confluence.getCustomContentById(options, function(err, data) {
                 expect(err).to.be.null;
                 expect(data).not.to.be.null;
@@ -215,6 +220,23 @@ describe('Confluence API', function () {
             confluence.updateAttachmentData(space, newPageId, attachmentId, filePath, function(err, data) {
                 expect(err).to.be.null;
                 expect(data.title).to.be.equal(path.basename(filePath));
+                done();
+            });
+        });
+    });
+
+    describe('#postContentWithAttachments', function () {
+        it('should post/create page content by space and title with attachments', function (done) {
+            var confluence = new Confluence(config);
+            confluence.postContentWithAttachments(space, title + ' 2', pageContent, null, filePath, function(err, data) {
+                if (err) console.error(err);
+                expect(err).to.be.null;
+                expect(data).not.to.be.null;
+                expect(data.body.storage.value).to.equal(pageContent);
+                let newerPageId = data.id;
+                expect(newerPageId).not.to.be.null;
+                version = data.version.number;
+                expect(version).to.be.above(0);
                 done();
             });
         });
